@@ -61,6 +61,32 @@ function App() {
   
   // toggleTodo is passing down toggleTodo function for the Todolist component 
 
+  // for state hook: basic notes:
+  // when update state, it rerenders. 
+  const [firstthinginarrayisalwayscurrentstate, functionthatallowsustoupdatethatcurrentstate] = useState(0)
+  //const [firstthinginarrayisalwayscurrentstate, functionthatallowsustoupdatethatcurrentstate] = useState(() => {
+    //console.log('if state is used this way, it will only be run once on loading, not repeatedly like the other one)
+  //})
+
+
+  //additional notes about state and passing in objects in state **********************//
+  //const [firstthinginarrayisalwayscurrentstate, functionthatallowsustoupdatethatcurrentstate] = useState({count: 0})
+
+  // function decrementCount() {
+  //   functionthatallowsustoupdatethatcurrentstate(thisispreviousvalue => {
+  //     return { ...thisispreviousvalue, count: thisispreviousvalue.count - 1) //have to ...spread out previous state and then set new state
+  // }
+  //additional notes about state and passing in objects in state **********************//
+
+  function decrementCount() {
+    functionthatallowsustoupdatethatcurrentstate(thisispreviousvalue => thisispreviousvalue - 1)
+  }
+
+  function incrementCount() {
+    functionthatallowsustoupdatethatcurrentstate(thisispreviousvalue => thisispreviousvalue + 1)
+  }
+
+
   return (
     <>
     <TodoList todosProp={todos} toggleTodoProp={toggleTodoFunction}/> 
@@ -68,6 +94,11 @@ function App() {
     <button onClick={ handleAddTodo }>Add To Do</button>
     <button onClick={ handleClearTodoFunction }>Clear Completed To Do</button>
     <div>{todos.filter(x => !x.complete).length} left to do</div>
+    <p>Hooks only function inside function components, (and not classes, ie class App extends... and must always execute in same order</p>
+
+    <button onClick={decrementCount}>-</button>
+    <span>{firstthinginarrayisalwayscurrentstate}</span>
+    <button onClick={incrementCount}>+</button>
     </>
   );
 }
